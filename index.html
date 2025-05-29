@@ -16,7 +16,7 @@ font-family: 'Poppins', sans-serif;
 background: #0f111a;
 color: #e0e0e0;
 line-height: 1.6;
-font-size: 1rem; /* base font size */
+font-size: 1rem;
 }
 a {
 color: #00d8ff;
@@ -41,15 +41,19 @@ padding: 0 1rem;
 header {
 padding: 1.5rem 0;
 border-bottom: 1px solid #222633;
-display: flex;
-justify-content: space-between;
-align-items: center;
 background-color: rgba(15,17,26,0.9);
 position: sticky;
 top: 0;
 z-index: 20;
+}
+
+.header-content {
+display: flex;
+justify-content: space-between;
+align-items: center;
 flex-wrap: wrap;
 }
+
 .logo {
 font-weight: 900;
 font-size: clamp(1.5rem, 2.5vw, 2rem);
@@ -60,11 +64,13 @@ text-transform: uppercase;
 text-shadow: 0 0 8px #00d8ff;
 outline: none;
 }
+
+/* Navigation */
 nav {
 display: flex;
-flex-wrap: wrap;
 align-items: center;
 }
+
 nav a {
 margin-left: 2rem;
 font-weight: 600;
@@ -72,8 +78,24 @@ font-size: clamp(0.9rem, 1.5vw, 1rem);
 letter-spacing: 0.8px;
 padding: 0.3rem 0;
 }
+
 nav a:first-child {
 margin-left: 0;
+}
+
+/* Hamburger Menu */
+#nav-toggle {
+display: none;
+background: none;
+border: none;
+cursor: pointer;
+color: #00d8ff;
+font-size: 1.8rem;
+padding: 0.5rem;
+}
+
+#nav-toggle:hover {
+color: #00ffe7;
 }
 
 /* Hero Section */
@@ -228,46 +250,6 @@ vertical-align: middle;
 filter: drop-shadow(0 0 4px #00d8ffcc);
 }
 
-/* Testimonials Section */
-.testimonials {
-max-width: 1100px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: clamp(1.5rem,2vw,3rem);
-background: #12182c;
-border-radius: 20px;
-padding: clamp(2rem, 4vw, 3rem);
-box-shadow: 0 0 30px rgba(0, 216, 255, 0.15);
-}
-.testimonial-logo {
-filter: brightness(0) invert(1);
-max-width: 140px;
-margin-bottom: 2rem;
-transition: filter 0.3s ease;
-}
-.testimonial-logo:hover,
-.testimonial-logo:focus {
-filter: brightness(0) saturate(10) invert(0.6) sepia(1) hue-rotate(180deg) saturate(3);
-outline: none;
-}
-.testimonial-comment {
-font-size: clamp(1rem,2vw,1.1rem);
-color: #b3d9ffcc;
-line-height: 1.6;
-font-style: italic;
-}
-.testimonial-item {
-background: #1a2138;
-border-radius: 15px;
-padding: 2rem 2rem 3rem;
-text-align: center;
-box-shadow: 0 8px 20px rgba(0, 216, 255, 0.2);
-display: flex;
-flex-direction: column;
-align-items: center;
-}
-
 /* Services Section */
 .services {
 display: grid;
@@ -353,26 +335,13 @@ letter-spacing: 0.8px;
 font-family: 'Poppins', sans-serif;
 }
 
-/* Responsive tweaks */
-@media (max-width: 1024px) {
-.testimonials {
-grid-template-columns: 1fr;
-padding: clamp(2rem, 4vw, 3rem);
-}
-}
+/* Responsive Design */
 @media (max-width: 768px) {
 .hero h1 {
 font-size: clamp(2rem, 6vw, 2.8rem);
 }
 .hero h2 {
 font-size: clamp(1rem, 3vw, 1.3rem);
-}
-nav {
-justify-content: center;
-margin-top: 0.5rem;
-}
-nav a {
-margin: 0 1rem 0 1rem;
 }
 .services {
 grid-template-columns: 1fr;
@@ -382,18 +351,55 @@ gap: clamp(1.5rem, 2vw, 2.8rem);
 grid-template-columns: 1fr 1fr;
 gap: 2rem;
 }
+
+/* Show hamburger menu and hide nav on mobile */
+#nav-toggle {
+display: block;
 }
+
+nav {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+right: 0;
+background-color: rgba(15,17,26,0.98);
+flex-direction: column;
+padding: 1rem 0;
+border-top: 1px solid #222633;
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+nav.show {
+display: flex;
+}
+
+nav a {
+margin: 0;
+padding: 1rem 2rem;
+font-size: 1.1rem;
+text-align: center;
+border-bottom: 1px solid #222633;
+transition: background-color 0.3s ease;
+}
+
+nav a:hover,
+nav a:focus {
+background-color: rgba(0, 216, 255, 0.1);
+}
+
+nav a:last-child {
+border-bottom: none;
+}
+
+.header-content {
+position: relative;
+}
+}
+
 @media (max-width: 480px) {
 .team-members {
 grid-template-columns: 1fr;
-}
-nav {
-flex-direction: column;
-align-items: center;
-}
-nav a {
-margin: 0.3rem 0.7rem;
-font-size: 0.95rem;
 }
 }
 </style>
@@ -402,15 +408,21 @@ font-size: 0.95rem;
 </head>
 <body>
 
-<header class="container" role="banner">
+<header role="banner">
+<div class="container">
+<div class="header-content">
 <div class="logo" tabindex="0">FORGE AI LABS</div>
-<nav role="navigation" aria-label="Primary navigation">
+<button id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
+    &#9776;
+</button>
+<nav id="primary-navigation" role="navigation" aria-label="Primary navigation">
 <a href="#about">About</a>
 <a href="#team">Our Team</a>
-<a href="#testimonials">Testimonials</a>
 <a href="#services">Services</a>
 <a href="#contact">Contact</a>
 </nav>
+</div>
+</div>
 </header>
 
 <main>
@@ -438,52 +450,41 @@ font-size: 0.95rem;
 <img src="images/img_0389.jpg" alt="Anirudh Murthy" class="team-photo" />
 <h3 class="team-name">Anirudh Murthy</h3>
 <p class="team-role">SDE@Amazon</p>
-<p class="one-liner">Vibe Coded this website on an Ipad :)</p>
-<a href="https://www.linkedin.com/in/anirudh-murthy-/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Alice Johnson">
+<p class="one-liner">Vibe Coded this website on an iPad :)</p>
+<a href="https://www.linkedin.com/in/anirudh-murthy-/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Anirudh Murthy">
 <svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
 </a>
 </article>
 <article class="team-card" tabindex="0">
-<img src="images/va.jpg" alt="Profile photo of Bob Smith" class="team-photo" />
+<img src="images/va.jpg" alt="Vansh Arora" class="team-photo" />
 <h3 class="team-name">Vansh Arora</h3>
 <p class="team-role">Omnichannel@EliLilly</p>
-<p class="team-role">Pro at AI marketting and Dashboards!</p>
-<a href="https://www.linkedin.com/in/aroravansh1303/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Bob Smith">
+<p class="team-role">Pro at AI marketing and Dashboards!</p>
+<a href="https://www.linkedin.com/in/aroravansh1303/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Vansh Arora">
 <svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
 </a>
 </article>
 <article class="team-card" tabindex="0">
-<img src="images/sm.jpg" alt="Profile photo of Carol Nguyen" class="team-photo" />
+<img src="images/sm.jpg" alt="Swathi Mohan" class="team-photo" />
 <h3 class="team-name">Swathi Mohan</h3>
 <p class="team-role">AI Research@Microsoft</p>
 <p class="team-role">Creating AI agents is my daily job :-></p>
-<a href="https://www.linkedin.com/in/swathi-mohan-01333721a/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Carol Nguyen">
+<a href="https://www.linkedin.com/in/swathi-mohan-01333721a/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Swathi Mohan">
 <svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
 </a>
 </article>
 <article class="team-card" tabindex="0">
-<img src="images/ir.jpg" alt="Profile photo of David Kim" class="team-photo" />
+<img src="images/ir.jpg" alt="Ilham Rahm" class="team-photo" />
 <h3 class="team-name">Ilham Rahm</h3>
 <p class="team-role">SDE@Amazon</p>
 <p class="team-role">God Developer, can build anything!</p>
-<a href="https://www.linkedin.com/in/ilham-rahm-b35081219/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of David Kim">
+<a href="https://www.linkedin.com/in/ilham-rahm-b35081219/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Ilham Rahm">
 <svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
 </a>
 </article>
 </div>
 </div>
 </section>
-
-<!-- <section class="testimonials" id="testimonials" role="region" aria-label="Client testimonials">
-<div class="testimonial-item">
-<img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple-logo.png" alt="Apple logo" class="testimonial-logo" tabindex="0"/>
-<p class="testimonial-comment">NeuraForge AI Labs helped us develop a customized AI-powered recommendation engine that increased our user engagement by 30%. Their expertise and professionalism are unmatched.</p>
-</div>
-<div class="testimonial-item">
-<img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft logo" class="testimonial-logo" tabindex="0"/>
-<p class="testimonial-comment">The integration and automation solutions provided by NeuraForge streamlined our workflows, saving hundreds of hours monthly and improving accuracy across the board.</p>
-</div>
-</section> -->
 
 <section class="services" id="services" role="region" aria-label="Our services">
 <div class="container">
@@ -504,11 +505,6 @@ font-size: 0.95rem;
 <h3>AI Integration & Automation</h3>
 <p>Seamless integration of AI capabilities into existing platforms and workflows for scalable automation and efficiency.</p>
 </article>
-<!-- <article class="service-card" tabindex="0" aria-label="AI Training and Support Service">
-<img src="https://img.icons8.com/ios/100/00d8ff/training.png" alt="Training & Support Icon" class="service-icon" />
-<h3>Training & Support</h3>
-<p>Comprehensive AI education programs and ongoing technical support to empower your teams and maintain your systems.</p>
-</article> -->
 </div>
 </div>
 </section>
@@ -516,14 +512,14 @@ font-size: 0.95rem;
 <section class="contact" id="contact" role="region" aria-label="Contact Us">
 <div class="container">
 <h2 class="section-title">Contact Us</h2>
-<p>Ready to innovate with AI? Reach out and let&#39;s build the future together.</p>
+<p>Ready to innovate with AI? Reach out and let's build the future together.</p>
 <button class="btn-secondary" onclick="window.location='https://form.typeform.com/to/mkYQUr2x'">Email Us</button>
 </div>
 </section>
 </main>
 
 <footer>
-<p>&copy; 2024 NeuraForge AI Labs. Powered by FAANG Engineers.</p>
+<p>&copy; 2024 Forge AI Labs. Powered by FAANG Engineers.</p>
 </footer>
 
 <script>
@@ -536,9 +532,32 @@ const targetSection = document.getElementById(targetId);
 if(targetSection){
 targetSection.scrollIntoView({behavior: 'smooth'});
 }
+// Close mobile menu after clicking a link
+const nav = document.getElementById('primary-navigation');
+const navToggle = document.getElementById('nav-toggle');
+nav.classList.remove('show');
+navToggle.setAttribute('aria-expanded', 'false');
 });
+});
+
+// Mobile menu toggle
+const navToggle = document.getElementById('nav-toggle');
+const nav = document.getElementById('primary-navigation');
+
+navToggle.addEventListener('click', () => {
+const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+navToggle.setAttribute('aria-expanded', !isExpanded);
+nav.classList.toggle('show');
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', (e) => {
+if (!nav.contains(e.target) && !navToggle.contains(e.target)) {
+nav.classList.remove('show');
+navToggle.setAttribute('aria-expanded', 'false');
+}
 });
 </script>
 
 </body>
-</html> 
+</html>
