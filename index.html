@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title> Forge AI Labs - Expert AI Solutions by FAANG Engineers</title>
+<style>
+/* Reset & Base */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+body {
+font-family: 'Poppins', sans-serif;
+background: #0f111a;
+color: #e0e0e0;
+line-height: 1.6;
+font-size: 1rem; /* base font size */
+}
+a {
+color: #00d8ff;
+text-decoration: none;
+transition: color 0.3s ease;
+}
+a:hover,
+a:focus {
+color: #00ffe7;
+outline: none;
+}
+
+/* Container */
+.container {
+width: 90%;
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 1rem;
+}
+
+/* Header */
+header {
+padding: 1.5rem 0;
+border-bottom: 1px solid #222633;
+display: flex;
+justify-content: space-between;
+align-items: center;
+background-color: rgba(15,17,26,0.9);
+position: sticky;
+top: 0;
+z-index: 20;
+flex-wrap: wrap;
+}
+.logo {
+font-weight: 900;
+font-size: clamp(1.5rem, 2.5vw, 2rem);
+color: #00d8ff;
+letter-spacing: 3px;
+font-family: 'Orbitron', sans-serif;
+text-transform: uppercase;
+text-shadow: 0 0 8px #00d8ff;
+outline: none;
+}
+nav {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+}
+nav a {
+margin-left: 2rem;
+font-weight: 600;
+font-size: clamp(0.9rem, 1.5vw, 1rem);
+letter-spacing: 0.8px;
+padding: 0.3rem 0;
+}
+nav a:first-child {
+margin-left: 0;
+}
+
+/* Hero Section */
+.hero {
+position: relative;
+padding: 7rem 0 7rem;
+text-align: center;
+color: #00d8ff;
+font-weight: 700;
+letter-spacing: 2px;
+overflow: hidden;
+}
+.hero::before {
+content: "";
+position: absolute;
+top: 0; left: 0; width: 100%; height: 100%;
+background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80') center center/cover no-repeat;
+filter: brightness(0.3) saturate(1.2);
+z-index: 0;
+transition: background 0.5s ease;
+}
+.hero .container {
+position: relative;
+z-index: 1;
+max-width: 900px;
+}
+.hero h1 {
+font-size: clamp(2rem, 6vw, 3.8rem);
+margin-bottom: 0.6rem;
+text-shadow: 0 0 22px #00e6ff;
+}
+.hero h2 {
+font-size: clamp(1rem, 3vw, 1.6rem);
+font-weight: 400;
+color: #95e8ffcc;
+margin-bottom: 3rem;
+max-width: 720px;
+margin-left: auto;
+margin-right: auto;
+text-shadow: 0 0 10px #00c0ff88;
+}
+.btn-primary {
+background-color: #00d8ff;
+color: #0f111a;
+padding: clamp(0.8rem, 1.5vw, 1.1rem) clamp(2rem, 4vw, 3rem);
+font-weight: 700;
+text-transform: uppercase;
+border-radius: 35px;
+letter-spacing: 1.6px;
+cursor: pointer;
+border: none;
+box-shadow: 0 7px 22px rgb(0 216 255 / 0.6);
+transition: background-color 0.3s ease, transform 0.25s ease;
+}
+.btn-primary:hover,
+.btn-primary:focus{
+background-color: #00ffe7;
+box-shadow: 0 10px 28px rgb(0 255 231 / 0.8);
+transform: scale(1.07);
+outline: none;
+}
+
+/* Sections */
+section {
+padding: clamp(3rem, 6vw, 5rem) 0 clamp(3rem, 6vw, 5rem);
+}
+h2.section-title {
+font-size: clamp(2rem, 5vw, 3rem);
+font-weight: 800;
+color: #00d8ff;
+text-align: center;
+margin-bottom: 3.5rem;
+letter-spacing: 2px;
+font-family: 'Orbitron', sans-serif;
+text-shadow: 0 0 15px #00d8ff66;
+}
+
+/* About Section */
+.about {
+max-width: 900px;
+margin: 0 auto;
+font-size: clamp(1rem, 2.5vw, 1.2rem);
+color: #cfd7e6;
+text-align: center;
+line-height: 1.8;
+}
+.about strong {
+color: #00ffe7;
+}
+
+/* Team Section */
+.team-members {
+max-width: 1100px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+gap: clamp(1.5rem,2vw,3rem);
+justify-items: center;
+}
+.team-card {
+background: #1a2138;
+border-radius: 20px;
+padding: 2rem 1.5rem;
+box-shadow: 0 8px 22px rgba(0, 216, 255, 0.25);
+text-align: center;
+transition: transform 0.3s ease;
+width: 100%;
+max-width: 280px;
+}
+.team-card:hover,
+.team-card:focus-within {
+transform: translateY(-10px);
+box-shadow: 0 14px 36px rgba(0, 255, 231, 0.5);
+outline: none;
+}
+.team-photo {
+width: 96px;
+height: 96px;
+border-radius: 50%;
+margin-bottom: 1rem;
+object-fit: cover;
+border: 3px solid #00d8ff;
+box-shadow: 0 0 15px #00d8ffaa;
+}
+.team-name {
+font-family: 'Orbitron', sans-serif;
+font-weight: 700;
+font-size: clamp(1.1rem, 2vw, 1.3rem);
+margin-bottom: 0.3rem;
+color: #00d8ff;
+}
+.team-role {
+font-size: clamp(0.9rem,1.5vw,1rem);
+color: #b0becd;
+margin-bottom: 1rem;
+}
+.linkedin-link {
+display: inline-block;
+color: #00d8ff;
+font-size: 1.8rem;
+transition: color 0.3s ease;
+}
+.linkedin-link:hover,
+.linkedin-link:focus {
+color: #00ffe7;
+outline: none;
+}
+.linkedin-icon {
+width: 28px;
+height: 28px;
+vertical-align: middle;
+filter: drop-shadow(0 0 4px #00d8ffcc);
+}
+
+/* Testimonials Section */
+.testimonials {
+max-width: 1100px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: clamp(1.5rem,2vw,3rem);
+background: #12182c;
+border-radius: 20px;
+padding: clamp(2rem, 4vw, 3rem);
+box-shadow: 0 0 30px rgba(0, 216, 255, 0.15);
+}
+.testimonial-logo {
+filter: brightness(0) invert(1);
+max-width: 140px;
+margin-bottom: 2rem;
+transition: filter 0.3s ease;
+}
+.testimonial-logo:hover,
+.testimonial-logo:focus {
+filter: brightness(0) saturate(10) invert(0.6) sepia(1) hue-rotate(180deg) saturate(3);
+outline: none;
+}
+.testimonial-comment {
+font-size: clamp(1rem,2vw,1.1rem);
+color: #b3d9ffcc;
+line-height: 1.6;
+font-style: italic;
+}
+.testimonial-item {
+background: #1a2138;
+border-radius: 15px;
+padding: 2rem 2rem 3rem;
+text-align: center;
+box-shadow: 0 8px 20px rgba(0, 216, 255, 0.2);
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+/* Services Section */
+.services {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: clamp(1.5rem,2vw,2.8rem);
+max-width: 1100px;
+margin: 0 auto;
+}
+.service-card {
+background: #1a2138;
+padding: 2.5rem 2rem;
+border-radius: 20px;
+box-shadow: 0 8px 22px rgba(0, 216, 255, 0.25);
+transition: transform 0.35s ease;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.service-card:hover,
+.service-card:focus-within {
+transform: translateY(-12px);
+box-shadow: 0 16px 40px rgba(0, 255, 231, 0.55);
+outline: none;
+}
+.service-icon {
+width: 60px;
+height: 60px;
+margin-bottom: 1.5rem;
+filter: drop-shadow(0 0 6px #00d8ffcc);
+}
+.service-card h3 {
+margin-bottom: 1.05rem;
+font-weight: 700;
+color: #00d8ff;
+font-family: 'Orbitron', sans-serif;
+}
+.service-card p {
+color: #b0becd;
+font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+line-height: 1.5;
+text-align: center;
+}
+
+/* Contact Section */
+.contact {
+max-width: 600px;
+margin: 0 auto;
+text-align: center;
+}
+.contact p {
+margin-bottom: 2.3rem;
+font-size: clamp(1rem, 2vw, 1.15rem);
+color: #cfd7e6;
+}
+.btn-secondary {
+background-color: transparent;
+border: 2.5px solid #00d8ff;
+color: #00d8ff;
+padding: clamp(0.8rem, 1.5vw, 1rem) clamp(2rem, 4vw, 3.2rem);
+font-weight: 700;
+border-radius: 35px;
+cursor: pointer;
+transition: background-color 0.4s ease, color 0.4s ease;
+letter-spacing: 1.6px;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+background-color: #00d8ff;
+color: #0f111a;
+box-shadow: 0px 0px 16px #00d8ffcc;
+outline: none;
+}
+
+/* Footer */
+footer {
+padding: 2.5rem 0;
+text-align: center;
+color: #555d6c;
+border-top: 1px solid #222633;
+font-size: 1rem;
+font-weight: 600;
+letter-spacing: 0.8px;
+font-family: 'Poppins', sans-serif;
+}
+
+/* Responsive tweaks */
+@media (max-width: 1024px) {
+.testimonials {
+grid-template-columns: 1fr;
+padding: clamp(2rem, 4vw, 3rem);
+}
+}
+@media (max-width: 768px) {
+.hero h1 {
+font-size: clamp(2rem, 6vw, 2.8rem);
+}
+.hero h2 {
+font-size: clamp(1rem, 3vw, 1.3rem);
+}
+nav {
+justify-content: center;
+margin-top: 0.5rem;
+}
+nav a {
+margin: 0 1rem 0 1rem;
+}
+.services {
+grid-template-columns: 1fr;
+gap: clamp(1.5rem, 2vw, 2.8rem);
+}
+.team-members {
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+}
+}
+@media (max-width: 480px) {
+.team-members {
+grid-template-columns: 1fr;
+}
+nav {
+flex-direction: column;
+align-items: center;
+}
+nav a {
+margin: 0.3rem 0.7rem;
+font-size: 0.95rem;
+}
+}
+</style>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<header class="container" role="banner">
+<div class="logo" tabindex="0">FORGE AI LABS</div>
+<nav role="navigation" aria-label="Primary navigation">
+<a href="#about">About</a>
+<a href="#team">Our Team</a>
+<a href="#testimonials">Testimonials</a>
+<a href="#services">Services</a>
+<a href="#contact">Contact</a>
+</nav>
+</header>
+
+<main>
+<section class="hero" role="region" aria-label="Welcome section">
+<div class="container">
+<h1>Forging the Future with AI</h1>
+<h2>Cutting-edge AI solutions delivered by FAANG Engineers</h2>
+<button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+</div>
+</section>
+
+<section class="about" id="about" role="region" aria-label="About our agency">
+<div class="container">
+<h2 class="section-title">About Us</h2>
+<p>We are a team of <strong>FAANG engineers</strong> passionate about bringing in AI solutions that will help startups be more impactful.</p>
+<p>Our mission is to deliver <strong>state-of-the-art AI solutions</strong> tailored to your unique challenges, backed by industry best practices empowering businesses to unlock new possibilities</p>
+</div>
+</section>
+
+<section class="team" id="team" role="region" aria-label="Our team">
+<div class="container">
+<h2 class="section-title">Our Team</h2>
+<div class="team-members">
+<article class="team-card" tabindex="0">
+<img src="images/img_0389.jpg" alt="Anirudh Murthy" class="team-photo" />
+<h3 class="team-name">Anirudh Murthy</h3>
+<p class="team-role">SDE@Amazon</p>
+<p class="one-liner">Vibe Coded this website on an Ipad :)</p>
+<a href="https://www.linkedin.com/in/anirudh-murthy-/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Alice Johnson">
+<svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
+</a>
+</article>
+<article class="team-card" tabindex="0">
+<img src="images/va.jpg" alt="Profile photo of Bob Smith" class="team-photo" />
+<h3 class="team-name">Vansh Arora</h3>
+<p class="team-role">Omnichannel@EliLilly</p>
+<p class="team-role">Pro at AI marketting and Dashboards!</p>
+<a href="https://www.linkedin.com/in/aroravansh1303/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Bob Smith">
+<svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
+</a>
+</article>
+<article class="team-card" tabindex="0">
+<img src="images/sm.jpg" alt="Profile photo of Carol Nguyen" class="team-photo" />
+<h3 class="team-name">Swathi Mohan</h3>
+<p class="team-role">AI Research@Microsoft</p>
+<p class="team-role">Creating AI agents is my daily job :-></p>
+<a href="https://www.linkedin.com/in/swathi-mohan-01333721a/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of Carol Nguyen">
+<svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
+</a>
+</article>
+<article class="team-card" tabindex="0">
+<img src="images/ir.jpg" alt="Profile photo of David Kim" class="team-photo" />
+<h3 class="team-name">Ilham Rahm</h3>
+<p class="team-role">SDE@Amazon</p>
+<p class="team-role">God Developer, can build anything!</p>
+<a href="https://www.linkedin.com/in/ilham-rahm-b35081219/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="LinkedIn profile of David Kim">
+<svg class="linkedin-icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3C3.34 3 2 4.34 2 5.98c0 1.6 1.28 3.14 3.56 3.14h.04c1.7 0 3.42-1.54 3.42-3.14-2e-3 -1.64-1.28-2.98-3.36-2.98Zm-.02 6.65h4.02v12.17H5v-12.17Zm7-1.552c0 1.068.75 1.59 1.74 1.59 1.562 0 1.75-1.356 1.75-1.77 0-1.452-1.13-2.856-2.748-2.856-1.42 0-2.31 1.024-2.31 2.983 0 1.326.56 2.12 1.316 2.12.535-.006 1.106-.203 1.48-.61v.003h-.002ZM19 9.72v12.1h-4V15.72c0-2.12-1.13-3.11-2.64-3.11-1.254 0-1.824.678-2.13 1.15v.001H10v-4.1h4v1.32s.18-.35 1-.7c.81-.36 2.03-.81 3.42-.81Z"/></svg>
+</a>
+</article>
+</div>
+</div>
+</section>
+
+<!-- <section class="testimonials" id="testimonials" role="region" aria-label="Client testimonials">
+<div class="testimonial-item">
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Apple-logo.png" alt="Apple logo" class="testimonial-logo" tabindex="0"/>
+<p class="testimonial-comment">NeuraForge AI Labs helped us develop a customized AI-powered recommendation engine that increased our user engagement by 30%. Their expertise and professionalism are unmatched.</p>
+</div>
+<div class="testimonial-item">
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft logo" class="testimonial-logo" tabindex="0"/>
+<p class="testimonial-comment">The integration and automation solutions provided by NeuraForge streamlined our workflows, saving hundreds of hours monthly and improving accuracy across the board.</p>
+</div>
+</section> -->
+
+<section class="services" id="services" role="region" aria-label="Our services">
+<div class="container">
+<h2 class="section-title">What We Offer</h2>
+<div class="services">
+<article class="service-card" tabindex="0" aria-label="AI Consulting Service">
+<img src="https://img.icons8.com/ios/100/00d8ff/artificial-intelligence.png" alt="AI Consulting Icon" class="service-icon" />
+<h3>AI Consulting</h3>
+<p>Strategic guidance and insights to help you navigate AI adoption, feasibility, and roadmap planning for maximum impact.</p>
+</article>
+<article class="service-card" tabindex="0" aria-label="Custom Development Service">
+<img src="https://img.icons8.com/ios/100/00d8ff/training.png" alt="Custom Development Icon" class="service-icon" />
+<h3>Custom Development</h3>
+<p>Web development, graphic design, dashboard creation, and tailored software solutions to bring your vision to life.</p>
+</article>
+<article class="service-card" tabindex="0" aria-label="AI Integration and Automation Service">
+<img src="https://img.icons8.com/ios/100/00d8ff/robot-2.png" alt="AI Integration & Automation Icon" class="service-icon" />
+<h3>AI Integration & Automation</h3>
+<p>Seamless integration of AI capabilities into existing platforms and workflows for scalable automation and efficiency.</p>
+</article>
+<!-- <article class="service-card" tabindex="0" aria-label="AI Training and Support Service">
+<img src="https://img.icons8.com/ios/100/00d8ff/training.png" alt="Training & Support Icon" class="service-icon" />
+<h3>Training & Support</h3>
+<p>Comprehensive AI education programs and ongoing technical support to empower your teams and maintain your systems.</p>
+</article> -->
+</div>
+</div>
+</section>
+
+<section class="contact" id="contact" role="region" aria-label="Contact Us">
+<div class="container">
+<h2 class="section-title">Contact Us</h2>
+<p>Ready to innovate with AI? Reach out and let&#39;s build the future together.</p>
+<button class="btn-secondary" onclick="window.location='https://form.typeform.com/to/mkYQUr2x'">Email Us</button>
+</div>
+</section>
+</main>
+
+<footer>
+<p>&copy; 2024 NeuraForge AI Labs. Powered by FAANG Engineers.</p>
+</footer>
+
+<script>
+// Smooth scroll for nav links
+document.querySelectorAll('nav a').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href').substring(1);
+const targetSection = document.getElementById(targetId);
+if(targetSection){
+targetSection.scrollIntoView({behavior: 'smooth'});
+}
+});
+});
+</script>
+
+</body>
+</html> 
